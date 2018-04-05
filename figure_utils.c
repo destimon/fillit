@@ -6,24 +6,35 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:58:58 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/05 19:11:44 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:37:47 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_el	append_el(t_figure *figure, int x, int y, const t_el pivot)
+t_el	*append_el(t_figure *figure, int x, int y, t_el *pivot)
 {
 	t_el	*copy;
+	int 	i;
 
 	if (figure->scheme == NULL)
 	{
 		figure->scheme = ft_create_el(0, 0);
+		return (figure->scheme);
 	}
 	else
 	{
-		copy = figure->scheme->next;
-
+		copy = figure->scheme;
+		i = 0;
+		while (copy && copy->next)
+		{
+			i++;
+			copy = copy->next;
+		}
+		if (i > 4)
+			throw_error("Attempt to add 5th point.");
+		copy->next = ft_create_el(pivot->x - x, pivot->y - y);
+		return (figure->scheme);
 	}
 }
 
