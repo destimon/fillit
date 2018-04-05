@@ -6,7 +6,7 @@
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/05 17:18:33 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:14:20 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static char	**expand_matrix(char **matrix, int len, int x, int y)
 {
-	int	i;
-	int	tmp;
+	char	*dots;
+	int		i;
+	int		tmp;
 
 	i = 0;
 	if (x > y)
@@ -23,15 +24,22 @@ static char	**expand_matrix(char **matrix, int len, int x, int y)
 	else
 		tmp = y;
 	matrix = realloc(matrix, tmp); /* write ft_realloc */
-	if (
-	while (len < tmp)
+	while (i < len)
 	{
-		matrix[len] = (char*)malloc(sizeof(char) * tmp + 1);
-		ft_memset(matrix[len], '.', tmp);
-		matrix[len][tmp] = '\0';
-		len++;
+		dots = ft_strnew(tmp - len);
+		ft_memset(dots, '.', (tmp - len));
+		matrix[i] = realloc(matrix[i], tmp);
+		ft_strncat(matrix[i], dots, len);
+		i++;
 	}
-	matrix[len] = NULL;
+	while (i < tmp)
+	{
+		matrix[i] = (char*)malloc(sizeof(char) * tmp + 1);
+		ft_memset(matrix[i], '.', tmp);
+		matrix[i][tmp] = '\0';
+		i++;
+	}
+	matrix[i] = NULL;
 	return (matrix);
 }
 
@@ -48,7 +56,13 @@ void	ft_fill_matrix(char **matrix, t_figure *fig)
 	{
 		i = 0;
 		if (tmp->x > len || tmp->y > len)
+		{
 			matrix = expand_matrix(matrix, len, tmp->x, tmp->y);
+			if (tmp->x > len)
+				len += tmp->x;
+			else if (tmp->y > len)
+				len += tmp->y;
+		}
 		while (i < len)
 		{
 			j = 0;

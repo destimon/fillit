@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_print_scheme.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/05 17:30:53 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/05 19:13:43 by dcherend         ###   ########.fr       */
+/*   Created: 2018/04/05 19:09:30 by dcherend          #+#    #+#             */
+/*   Updated: 2018/04/05 19:10:33 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-
-int		main(void)
+void	ft_print_scheme(char **matrix)
 {
-	return (0);
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		ft_putendl(matrix[i]);
+		i++;
+	}
 }
