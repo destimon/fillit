@@ -6,7 +6,7 @@
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/05 19:14:20 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/05 19:49:39 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,28 @@
 
 static char	**expand_matrix(char **matrix, int len, int x, int y)
 {
-	char	*dots;
 	int		i;
 	int		tmp;
 
-	i = 0;
-	if (x > y)
+	if (x >= len)
 		tmp = x;
 	else
 		tmp = y;
-	matrix = realloc(matrix, tmp); /* write ft_realloc */
+	i = 0;
+	matrix = realloc(matrix, tmp);
 	while (i < len)
 	{
-		dots = ft_strnew(tmp - len);
-		ft_memset(dots, '.', (tmp - len));
 		matrix[i] = realloc(matrix[i], tmp);
-		ft_strncat(matrix[i], dots, len);
-		i++;
-	}
-	while (i < tmp)
-	{
-		matrix[i] = (char*)malloc(sizeof(char) * tmp + 1);
 		ft_memset(matrix[i], '.', tmp);
 		matrix[i][tmp] = '\0';
 		i++;
 	}
-	matrix[i] = NULL;
+	while (i < tmp)
+	{
+		matrix[i] = ft_memalloc(tmp);
+		ft_memset(matrix[i], '.', tmp);
+		i++;
+	}
 	return (matrix);
 }
 
@@ -55,7 +51,7 @@ void	ft_fill_matrix(char **matrix, t_figure *fig)
 	while (tmp)
 	{
 		i = 0;
-		if (tmp->x > len || tmp->y > len)
+		if (tmp->x >= len || tmp->y >= len)
 		{
 			matrix = expand_matrix(matrix, len, tmp->x, tmp->y);
 			if (tmp->x > len)
