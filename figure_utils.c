@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:58:58 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/05 19:11:44 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/07 13:55:45 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_el	append_el(t_figure *figure, int x, int y, const t_el pivot)
 	else
 	{
 		copy = figure->scheme->next;
-
 	}
 }
 
