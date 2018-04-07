@@ -6,70 +6,67 @@
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/05 19:49:39 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/07 16:32:54 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char	**expand_matrix(char **matrix, int len, int x, int y)
+static	int		define_length(int x, int y)
 {
-	int		i;
-	int		tmp;
+	int	res;
 
-	if (x >= len)
-		tmp = x;
+	res = 0;
+	if (x > y)
+		res = x;
 	else
-		tmp = y;
-	i = 0;
-	matrix = realloc(matrix, tmp);
-	while (i < len)
-	{
-		matrix[i] = realloc(matrix[i], tmp);
-		ft_memset(matrix[i], '.', tmp);
-		matrix[i][tmp] = '\0';
-		i++;
-	}
-	while (i < tmp)
-	{
-		matrix[i] = ft_memalloc(tmp);
-		ft_memset(matrix[i], '.', tmp);
-		i++;
-	}
-	return (matrix);
+		res = y;
+	return (res);
 }
 
-void	ft_fill_matrix(char **matrix, t_figure *fig)
+int		ft_get_maximum(t_figure *fig)
 {
-	int		i;
-	int		j;
-	int		len;
-	t_el	*tmp;
+	t_el 	*element;
+	int		res;
 
-	len = 4;
-	tmp = fig->scheme;
-	while (tmp)
+	res = 0;
+	element = fig->scheme;
+	while (element)
 	{
-		i = 0;
-		if (tmp->x >= len || tmp->y >= len)
-		{
-			matrix = expand_matrix(matrix, len, tmp->x, tmp->y);
-			if (tmp->x > len)
-				len += tmp->x;
-			else if (tmp->y > len)
-				len += tmp->y;
-		}
-		while (i < len)
-		{
-			j = 0;
-			while (j < len)
-			{
-				if ((i == tmp->x) && (j == tmp->y))
-					matrix[i][j] = 'A';
-				j++;
-			}
-			i++;
-		}
-		tmp = tmp->next;
+		if (element->x > element->y && element->x > res)
+			res = element->x;
+		else if (element->y > res)
+			res = element->y;
+		element = element->next;
 	}
+	return (res + 1);
+}
+
+static	char	**init_matrix(t_figure *fig)
+{
+	char	**mat;
+	int		size;
+	int		i;
+
+	i = 0;
+	size = ft_get_maximum(fig);
+	mat = ft_memalloc(size + 1);
+	while (i < size)
+	{
+		mat[i] = ft_memalloc(size + 1);
+		ft_memset(mat[i], '.', size);
+		i++;
+	}
+	mat[i] = NULL;
+	return (mat);
+}
+
+char	**ft_fill_matrix(char **matrix, t_figure *fig)
+{
+	while (fig)
+	{
+		matrix = init_matrix(fig);
+		fig = fig->next;
+	}
+	return (matrix);
 }
