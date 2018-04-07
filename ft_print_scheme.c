@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_scheme.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:09:30 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/05 19:10:33 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/07 16:35:05 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <printf.h>
+#include "libft/libft.h"
+#include "fillit.h"
 
 void	ft_print_scheme(char **matrix)
 {
@@ -20,4 +24,33 @@ void	ft_print_scheme(char **matrix)
 		ft_putendl(matrix[i]);
 		i++;
 	}
+}
+
+void	print_figure(t_figure *figure, int x, int y)
+{
+	char	fig[5][7];
+	int		i;
+
+	i = 0;
+	while (i < 5)
+		ft_memset(fig[i++], '\0', 7);
+	i = 0;
+	while (i < 5)
+		ft_memset(fig[i++], '.', 5);
+	i = 0;
+	while (i < 5)
+		fig[i++][5] = '\n';
+	while (figure->scheme)
+	{
+		fig[y + figure->scheme->y][x + figure->scheme->x] = 'A';
+		figure->scheme = figure->scheme->next;
+	}
+	i = 0;
+	while (i < 5)
+		printf("%s", fig[i++]);
+}
+
+void	print_figure_to_matrix(char **matrix, t_figure *figure, int x, int y)
+{
+	return ;
 }

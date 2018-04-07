@@ -6,16 +6,16 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:58:58 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/05 19:37:47 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/07 16:35:05 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_el	*append_el(t_figure *figure, int x, int y, t_el *pivot)
+t_el		*append_el(t_figure *figure, int x, int y, t_el *pivot)
 {
 	t_el	*copy;
-	int 	i;
+	int		i;
 
 	if (figure->scheme == NULL)
 	{
@@ -25,20 +25,20 @@ t_el	*append_el(t_figure *figure, int x, int y, t_el *pivot)
 	else
 	{
 		copy = figure->scheme;
-		i = 0;
+		i = 1;
 		while (copy && copy->next)
 		{
 			i++;
 			copy = copy->next;
 		}
-		if (i > 4)
+		if (i + 1 > 4)
 			throw_error("Attempt to add 5th point.");
-		copy->next = ft_create_el(pivot->x - x, pivot->y - y);
+		copy->next = ft_create_el(x - pivot->x, y - pivot->y);
 		return (figure->scheme);
 	}
 }
 
-t_figure	*construct_figure()
+t_figure	*ft_create_figure_empty(void)
 {
 	t_figure	*new;
 
