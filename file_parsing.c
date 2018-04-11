@@ -6,43 +6,12 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/07 16:56:37 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/11 19:20:49 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf.h>
 #include "fillit.h"
-
-void		validate_figure(const t_figure *figure)
-{
-	return ;
-}
-
-void		validate_point(const char **fld, int x, int y)
-{
-	if ((fld[y][x] != '.' && fld[y][x] != '\n' && fld[y][x] != '#'))
-		throw_error("Invalid character in buffer.");
-	if (fld[y][x] == '.')
-		return ;
-	if (x < 3 && y < 3 && x > 0 && y > 0)
-	{
-		if (fld[y + 1][x] == '#' || fld[y - 1][x] == '#' ||
-			fld[y][x + 1] == '#' || fld[y][x - 1] == '#')
-			return ;
-	}
-	/*else if (x > 0 && y > 0 && (fld[y - 1][x] == '#' || fld[y][x - 1] == '#'))
-		return ;
-	else if (x == 0 && y == 0 && (fld[y + 1][x] == '#' || fld[y][x + 1] == '#'))
-		return ;
-	else if (x == 0 && y > 0 && (fld[y - 1][x] == '#' || fld[y + 1][x] == '#' ||
-			fld[y][x + 1] == '#'))
-		return ;
-	else if (x > 0 && y == 0 && (fld[y][x - 1] == '#' || fld[y][x + 1] == '#' ||
-			fld[y + 1][x] == '#'))
-		return ;
-	else
-		throw_error("Some point has no neighbours.");*/
-}
 
 t_figure	*create_figure(const char *field)
 {
@@ -55,22 +24,21 @@ t_figure	*create_figure(const char *field)
 	new = ft_create_figure_empty();
 	buf = ft_strsplit(field, '\n');
 	if (buf == NULL)
-		throw_error("strsplit returned NULL");
+		throw_error("strsplit returned NULL. **DAFUQ?!**");
 	pivot = NULL;
 	y = -1;
 	while (++y < 4)
 	{
-		x = 0;
-		while (x < 4 && buf[y][x])
+		x = -1;
+		while (++x < 4 && buf[y][x])
 		{
-			validate_point((const char **)buf, x, y);
+			validate_neighbours((const char **) buf, x, y);
 			if (buf[y][x] == '#')
 			{
 				if (pivot == NULL)
 					pivot = ft_create_el(x, y);
 				append_el(new, x, y, pivot);
 			}
-			x++;
 		}
 	}
 	return (new);
@@ -89,7 +57,7 @@ void		read_figures(char *file)
 	fd = open(file, O_RDONLY);
 	letter = 'A';
 	if (fd == -1)
-		throw_error("file not found");
+		throw_error("File not found.");
 	while ((bytes = read(fd, buffer, 21)) > 0)
 		if ((bytes == 19 || bytes == 21) && letter++ < 'Z')
 		{
@@ -104,9 +72,10 @@ void		read_figures(char *file)
 				g_figure_list->next = create_figure(buffer);
 				g_figure_list = g_figure_list->next;
 			}
+			printf("%d\n", validate_figure(g_figure_list));
 		}
 		else
-			throw_error("Invalid data format or too many pieces");
+			throw_error("Invalid data format or too many pieces.");
 	g_figure_list = copy;
 	close(fd);
 }

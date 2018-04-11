@@ -6,12 +6,12 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:30:53 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/07 17:46:22 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/10 14:37:40 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
+/*
 int        main(int argc, char **argv)
 {
 	char	**matrix;
@@ -27,3 +27,4 @@ int        main(int argc, char **argv)
 	}
     return (0);
 }
+*/
