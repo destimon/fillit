@@ -1,2 +1,5 @@
 test.c
 *.out
+.idea/*
+CMakeLists.txt
+cmake-build-debug/*
