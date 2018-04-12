@@ -6,122 +6,67 @@
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/10 15:31:25 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:57:44 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static	int		ft_get_maximum_x(t_figure *fig)
+static	char		**ft_try_put(t_figure *fig, char **matrix, int i, int j,
+					int *size)
 {
-	t_el	*elem;
-	int	res;
+	char	**mat;
 
-	res = 0;
-	el = fig->scheme;
-	while (el)
+	mat = matrix;
+	while (i < fig->width)
 	{
-		if (elem->x > res)
-			res = elem->x;
-	}
-	return (res);
-}
-
-static	int		ft_get_maximum_y(t_figure *fig)
-{
-	t_el	*elem;
-	int	res;
-
-	res = 0;
-	el = fig->scheme;
-	while (el)
-	{
-		if (elem->y > res)
-			res = elem->y;
-	}
-	return (res);
-}
-
-static	char		ft_try_put(t_figure *fig, char **matrix, int x_l, int y_l
-				int x, int y, int size)
-{ 
-	while (x <= size)
-	{
-		while (y <= size)
+		while (j < fig->height)
 		{
-			if ((size - x >= x_l) && (size - y >= y_l))
-			{
-				ft_put_figure(fig, matrix, x, y);
-				return (1);
-			}
-			y++;
+			if (mat[i][j] == '.' && (*size - i) == fig->width &&
+					(*size - j) == fig->height)
+				return (matrix);
+			if (mat[i][j] != '.' && (*size - i) == fig->width &&
+					(*size - j) == fig->height)
+				mat[i][j] = fig->letter;
+			printf(
+			j++;
 		}
-		x++;
+		i++;
 	}
-	return (0);
+	return (mat);
 }
 
-static	char		**ft_put_figure(t_figure fig, char **matrix, int x, int y
-				char letter)
+static	char		**ft_init_matrix(t_figure *fig, char **matrix, int *size)
 {
-	while (x <= size)
+	size_t		i;
+	size_t		j;
+
+	while (i <= *size)
 	{
-		while (y <= size)
+		while (j <= *size)
 		{
-			matrix[x][y] = letter;
-			y++;
+			if (matrix[i][j] != '.' && (fig->width >= (size - i) &&
+						fig->height >= (size - j)))
+				matrix = ft_try_put(fig, matrix, i, j, size);
+			j++;
 		}
-		x++;
+		i++;
 	}
-}
-
-static	char		**ft_init_matrix(t_figure *fig, char **matrix, int x_l, 
-				int y_l, int size, char letter)
-{
-	int	x;
-	int	y;
-	int	check;
-
-	check = 0;
-	while (x <= size)
-	{
-		while (y <= size)
-		{
-			if (ft_try_put(fig, matrix, x_l, y_l, x, y, size, letter))
-				check = 1;
-			y++;
-		}
-		x++;
-	}
-	if (check == 0)
-	{
-		matrix = ft_expand_matrix();
-		ft_init_matrix(fig, matrix, x_l, y_l, size + 1);
-	}
-	return (matrix);
-}
-
-static	char		**reinit_matrix(t_figure *fig, int size)
-{
-	
 }
 
 char			**ft_fill_matrix(char **matrix, t_figure *fig)
 {
-	int	size;
-	int	x_length;
-	int	y_length;
 	char	letter;
-
+	int		*size;
+	
+	*size = 2;
 	letter = 'A';
-	size = 2;
 	while (fig)
 	{
-		x_length = ft_get_maximum_x(fig);
-		y_length = ft_get_maximum_y(fig);
-		ft_init_matrix(fig, matrix, x_l, y_l, size, letter);
-		letter++;
+		fig->letter = letter;
+		ft_init_matrix(fig, matrix, size);
 		fig = fig->next;
+		letter++;
 	}
 	return (matrix);
 }

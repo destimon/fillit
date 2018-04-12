@@ -14,6 +14,9 @@ typedef	struct		s_el
 
 typedef	struct		s_figure
 {
+	char			letter;
+	size_t			width;
+	size_t			height;
 	t_el			*scheme;
 	struct s_figure	*next;
 }					t_figure;
@@ -25,6 +28,7 @@ t_figure			*ft_create_figure(t_el *scheme);
 char				**ft_fill_matrix(char **matrix, t_figure *fig);
 char				**ft_solve_matrix(char **matrix, t_figure *fig);
 t_figure			*ft_create_set(t_figure *fig);
+void				ft_define_sizes(t_figure *fig);
 void				ft_print_scheme(char **field);
 
 void				read_figures(char *file);
