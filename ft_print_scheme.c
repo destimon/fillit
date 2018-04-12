@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:09:30 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/07 16:35:05 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/12 19:06:00 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,4 @@ void	print_figure(t_figure *figure, int x, int y)
 	i = 0;
 	while (i < 5)
 		printf("%s", fig[i++]);
-}
-
-void	print_figure_to_matrix(char **matrix, t_figure *figure, int x, int y)
-{
-	return ;
 }

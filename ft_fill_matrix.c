@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/12 15:57:44 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:58:23 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char			**ft_fill_matrix(char **matrix, t_figure *fig)
 {
 	char	letter;
 	int		*size;
-	
+
 	*size = 2;
 	letter = 'A';
 	while (fig)

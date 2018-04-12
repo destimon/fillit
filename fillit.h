@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/11 19:49:48 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/12 18:54:50 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft/libft.h"
 
 # define ABS(a) (a < 0 ? -a : a)
+# define SUCCESS 0
 
 typedef	struct		s_el
 {
@@ -60,5 +61,11 @@ t_figure			*create_figure(const char *field);
 void				validate_neighbours(const char **fld, int x, int y);
 t_figure			*validate_figure(const t_figure *figure);
 void				throw_error(char *message);
+
+/*
+** Alternative solution
+*/
+char				**matrix_realloc(char **matrix, size_t size);
+int					solve(t_figure *list, char **matrix);
 
 #endif
