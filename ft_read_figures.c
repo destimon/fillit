@@ -1,17 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_parsing.c                                     :+:      :+:    :+:   */
+/*   ft_read_figures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/11 19:20:49 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/12 17:34:23 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "fillit.h"
+
+/*
+** Possible bug in here.
+** TODO: Consider just removing NULL check in main function
+*/
+
+static char	**get_buf(const char *field)
+{
+	char		**buf;
+
+	buf = ft_strsplit(field, '\n');
+	if (buf == NULL)
+		throw_error("strsplit returned NULL. **DAFUQ?!**");
+	return (buf);
+}
+
+static int	get_fd(char *file)
+{
+	int		fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		throw_error("File not found.");
+	return (fd);
+}
 
 t_figure	*create_figure(const char *field)
 {
@@ -22,9 +46,7 @@ t_figure	*create_figure(const char *field)
 	t_figure	*new;
 
 	new = ft_create_figure_empty();
-	buf = ft_strsplit(field, '\n');
-	if (buf == NULL)
-		throw_error("strsplit returned NULL. **DAFUQ?!**");
+	buf = get_buf(field);
 	pivot = NULL;
 	y = -1;
 	while (++y < 4)
@@ -32,7 +54,7 @@ t_figure	*create_figure(const char *field)
 		x = -1;
 		while (++x < 4 && buf[y][x])
 		{
-			validate_neighbours((const char **) buf, x, y);
+			validate_neighbours((const char **)buf, x, y);
 			if (buf[y][x] == '#')
 			{
 				if (pivot == NULL)
@@ -44,38 +66,31 @@ t_figure	*create_figure(const char *field)
 	return (new);
 }
 
-void		read_figures(char *file)
+t_figure	*read_figures(char *file)
 {
 	int			fd;
-	char		letter;
 	char		buffer[21];
-	t_figure	*copy;
+	t_figure	*list_head;
 	long long	bytes;
 
-	copy = NULL;
+	list_head = NULL;
 	g_figure_list = NULL;
-	fd = open(file, O_RDONLY);
-	letter = 'A';
-	if (fd == -1)
-		throw_error("File not found.");
+	fd = get_fd(file);
 	while ((bytes = read(fd, buffer, 21)) > 0)
-		if ((bytes == 19 || bytes == 21) && letter++ < 'Z')
-		{
-			printf("%s", buffer);
+		if ((bytes == 19 || bytes == 21))
 			if (g_figure_list == NULL)
 			{
-				g_figure_list = create_figure(buffer);
-				copy = g_figure_list;
+				g_figure_list = validate_figure(create_figure(buffer));
+				list_head = g_figure_list;
 			}
 			else
 			{
-				g_figure_list->next = create_figure(buffer);
+				g_figure_list->next = validate_figure(create_figure(buffer));
 				g_figure_list = g_figure_list->next;
 			}
-			printf("%d\n", validate_figure(g_figure_list));
-		}
 		else
-			throw_error("Invalid data format or too many pieces.");
-	g_figure_list = copy;
+			throw_error("Invalid data format.");
+	g_figure_list = list_head;
 	close(fd);
+	return (g_figure_list);
 }

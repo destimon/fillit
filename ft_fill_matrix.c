@@ -28,7 +28,6 @@ static	char		**ft_try_put(t_figure *fig, char **matrix, int i, int j,
 			if (mat[i][j] != '.' && (*size - i) == fig->width &&
 					(*size - j) == fig->height)
 				mat[i][j] = fig->letter;
-			printf(
 			j++;
 		}
 		i++;

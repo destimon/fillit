@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:31 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/11 19:42:05 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/12 16:26:22 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check_inside(const char **fld, int x, int y)
 	return (0);
 }
 
-int			validate_figure(const t_figure *figure)
+t_figure	*validate_figure(const t_figure *figure)
 {
 	int		points;
 	int		x;
@@ -67,13 +67,13 @@ int			validate_figure(const t_figure *figure)
 		x = ABS(copy->next->x) - ABS(copy->x);
 		y = ABS(copy->next->y) - ABS(copy->y);
 		if (x >= 1 && y >= 1)
-			throw_error("Some points disconnected are from each other.");
+			throw_error("Some points are disconnected from each other.");
 		copy = copy->next;
 		points++;
 	}
 	if (points != 4)
 		throw_error("Less than 4 points in figure.");
-	return (points);
+	return ((t_figure *)figure);
 }
 
 void		validate_neighbours(const char **fld, int x, int y)

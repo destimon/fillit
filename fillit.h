@@ -48,7 +48,7 @@ void				ft_print_scheme(char **field);
 /*
 ** I/O
 */
-void				read_figures(char *file);
+t_figure			*read_figures(char *file);
 void				print_figure(t_figure *figure, int x, int y);
 t_el				*append_el(t_figure *figure, int x, int y, t_el *pivot);
 t_figure			*ft_create_figure_empty(void);
@@ -58,7 +58,7 @@ t_figure			*create_figure(const char *field);
 ** Validation
 */
 void				validate_neighbours(const char **fld, int x, int y);
-int					validate_figure(const t_figure *figure);
+t_figure			*validate_figure(const t_figure *figure);
 void				throw_error(char *message);
 
 #endif
