@@ -12,71 +12,115 @@
 
 #include "fillit.h"
 
-static	int		define_length(int x, int y)
+static	int		ft_get_maximum_x(t_figure *fig)
 {
+	t_el	*elem;
 	int	res;
 
 	res = 0;
-	if (x > y)
-		res = x;
-	else
-		res = y;
+	el = fig->scheme;
+	while (el)
+	{
+		if (elem->x > res)
+			res = elem->x;
+	}
 	return (res);
 }
 
-int		ft_get_maximum(t_figure *fig)
+static	int		ft_get_maximum_y(t_figure *fig)
 {
-	t_el 	*element;
-	int		res;
+	t_el	*elem;
+	int	res;
 
 	res = 0;
-	element = fig->scheme;
-	while (element)
+	el = fig->scheme;
+	while (el)
 	{
-		if (element->x > element->y && element->x > res)
-			res = element->x;
-		else if (element->y > res)
-			res = element->y;
-		element = element->next;
+		if (elem->y > res)
+			res = elem->y;
 	}
-	return (res + 1);
+	return (res);
 }
 
-static	char	**init_matrix(t_figure *fig, int size)
-{
-	char		**mat;
-	t_figure	*prev;
-	int			i;
-
-	i = 0;
-	size += ft_get_maximum(fig);
-	mat = ft_memalloc(size + 1);
-	while (i < size)
+static	char		ft_try_put(t_figure *fig, char **matrix, int x_l, int y_l
+				int x, int y, int size)
+{ 
+	while (x <= size)
 	{
-		mat[i] = ft_memalloc(size + 1);
-		ft_memset(mat[i], '.', size);
-		i++;
+		while (y <= size)
+		{
+			if ((size - x >= x_l) && (size - y >= y_l))
+			{
+				ft_put_figure(fig, matrix, x, y);
+				return (1);
+			}
+			y++;
+		}
+		x++;
 	}
-	mat[i] = NULL;
-	return (mat);
+	return (0);
 }
 
-static	char	**reinit_matrix(t_figure *fig, int size)
+static	char		**ft_put_figure(t_figure fig, char **matrix, int x, int y
+				char letter)
 {
-
+	while (x <= size)
+	{
+		while (y <= size)
+		{
+			matrix[x][y] = letter;
+			y++;
+		}
+		x++;
+	}
 }
 
-char	**ft_fill_matrix(char **matrix, t_figure *fig)
+static	char		**ft_init_matrix(t_figure *fig, char **matrix, int x_l, 
+				int y_l, int size, char letter)
+{
+	int	x;
+	int	y;
+	int	check;
+
+	check = 0;
+	while (x <= size)
+	{
+		while (y <= size)
+		{
+			if (ft_try_put(fig, matrix, x_l, y_l, x, y, size, letter))
+				check = 1;
+			y++;
+		}
+		x++;
+	}
+	if (check == 0)
+	{
+		matrix = ft_expand_matrix();
+		ft_init_matrix(fig, matrix, x_l, y_l, size + 1);
+	}
+	return (matrix);
+}
+
+static	char		**reinit_matrix(t_figure *fig, int size)
+{
+	
+}
+
+char			**ft_fill_matrix(char **matrix, t_figure *fig)
 {
 	int	size;
-	
-	size = ft_get_maximum(fig);
-	matrix = init_matrix(fig, size);
-	matrix = ft_solve_matrix(matrix, fig);
-	fig = fig->next;
+	int	x_length;
+	int	y_length;
+	char	letter;
+
+	letter = 'A';
+	size = 2;
 	while (fig)
 	{
-		
+		x_length = ft_get_maximum_x(fig);
+		y_length = ft_get_maximum_y(fig);
+		ft_init_matrix(fig, matrix, x_l, y_l, size, letter);
+		letter++;
 		fig = fig->next;
 	}
 	return (matrix);
