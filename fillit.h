@@ -50,6 +50,7 @@ typedef struct		s_matrix
 t_figure			*g_figure_list;
 static char			g_letter;
 
+int					g_size;
 
 t_el				*ft_create_el(int x, int y);
 t_figure			*ft_create_figure(t_el *scheme);

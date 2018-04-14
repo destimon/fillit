@@ -6,7 +6,7 @@
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/12 12:56:22 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/12 15:11:50 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/13 17:05:39 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void			ft_define_sizes(t_figure *fig)
 	{
 		fig->width = ft_vector_length_x(fig);
 		fig->height = ft_vector_length_y(fig);
-		printf("w: %zu\n h: %zu\n", fig->width, fig->height);
 		fig = fig->next;
 	}
 }
