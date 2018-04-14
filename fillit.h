@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <dcherend@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/13 12:48:09 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/14 15:58:48 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ typedef	struct		s_figure
 	struct s_figure	*next;
 }					t_figure;
 
-typedef struct		s_matrix
+typedef struct 		s_field
 {
-	char			**array;
-	size_t			size;
-}					t_matrix;
+	char			**field;
+	int				size;
+}					t_field;
 
-t_figure			*g_figure_list;
-static char			g_letter;
-
-int					g_size;
+t_figure			*g_figure_list; /* We should delete this shit in future */
 
 t_el				*ft_create_el(int x, int y);
 t_figure			*ft_create_figure(t_el *scheme);
-char				**ft_fill_matrix(char **matrix, t_figure *fig);
-char				**ft_solve_matrix(char **matrix, t_figure *fig);
+void				ft_fill_matrix(t_figure *fig);
 t_figure			*ft_create_set(t_figure *fig);
 void				ft_define_sizes(t_figure *fig);
-void				ft_print_scheme(char **field);
 
+/* Field changing tools */
+void				ft_print_field(t_field *fl);
+t_field 			*ft_alloc_field(int size);
+void				ft_del_field(t_field *fl);
+t_field 			*ft_realloc_field(t_field *fl, int	size);
 /*
 ** I/O
 */
