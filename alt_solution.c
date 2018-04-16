@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 18:04:20 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/13 12:58:12 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/16 13:11:31 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 ** Also, I think here can be a memory leak.
 */
 
-t_matrix		*matrix_realloc(char **matrix, size_t size)
+t_field			*matrix_realloc(char **matrix, size_t size)
 {
-	int			i;
+	size_t		i;
 	char		**copy;
-	t_matrix	*mtrx;
+	t_field		*mtrx;
 
 	i = 0;
-	mtrx = (t_matrix *)malloc(sizeof(t_matrix));
+	mtrx = (t_field *)malloc(sizeof(t_field));
 	mtrx->size = size;
 	copy = (char **)ft_memalloc(sizeof(char *) * (size + 1));
 	while (i < size)
@@ -43,7 +43,7 @@ t_matrix		*matrix_realloc(char **matrix, size_t size)
 		i++;
 	}
 	free(matrix);
-	mtrx->array = copy;
+	mtrx->field = copy;
 	return (mtrx);
 }
 
@@ -51,7 +51,7 @@ t_matrix		*matrix_realloc(char **matrix, size_t size)
 ** @return 0 if piece cannot be placed, 1 otherwise
 */
 
-static int		try_piece(t_matrix *mtrx, t_figure *figure, int x, int y)
+static int		try_piece(t_field *mtrx, t_figure *figure, int x, int y)
 {
 	t_el	*scheme;
 	int		dx;
@@ -62,14 +62,14 @@ static int		try_piece(t_matrix *mtrx, t_figure *figure, int x, int y)
 	{
 		dx = scheme->x + x;
 		dy = scheme->y + y;
-		if (dx < mtrx->size && dy < mtrx->size && mtrx->array[dy][dx] == '#')
+		if (dx < mtrx->size && dy < mtrx->size && mtrx->field[dy][dx] == '#')
 			return (0);
 		scheme = scheme->next;
 	}
 	return (1);
 }
 
-static int		write_piece(t_matrix *matrix, t_figure *figure, int x, int y)
+static int		write_piece(t_field *matrix, t_figure *figure, int x, int y)
 {
 	t_el	*scheme;
 	int		dx;
@@ -80,8 +80,8 @@ static int		write_piece(t_matrix *matrix, t_figure *figure, int x, int y)
 	{
 		dx = scheme->x + x;
 		dy = scheme->y + y;
-		if (matrix->array[dy][dx] > 'Z' || matrix->array[dy][dx] < 'A')
-			matrix->array[dy][dx] = figure->letter;
+		if (matrix->field[dy][dx] > 'Z' || matrix->field[dy][dx] < 'A')
+			matrix->field[dy][dx] = figure->letter;
 		else
 		{
 			print_matrix(matrix);
@@ -96,18 +96,53 @@ static int		write_piece(t_matrix *matrix, t_figure *figure, int x, int y)
 ** Removes piece by passing all figure points and deleting all letters there.
 */
 
-static int		remove_piece(char **matrix, t_figure *figure, int x, int y)
+static int		remove_piece(t_field *matrix, t_figure *figure, int x, int y)
 {
+	t_el	*scheme;
+	int		dx;
+	int		dy;
 
+	scheme = figure->scheme;
+	while (scheme)
+	{
+		dx = scheme->x + x;
+		dy = scheme->y + y;
+		if (matrix->field[dy][dx] == figure->letter)
+			matrix->field[dy][dx] = '.';
+		else
+		{
+			print_matrix(matrix);
+			throw_error("Attempt to remove wrong piece");
+		}
+		scheme = scheme->next;
+	}
+	return (1);
 }
 
 /*
 ** Removes piece by deleting all its letters.
 */
 
-static int		remove_kebab(char **matrix, t_figure *figure, int x, int y)
+static int		remove_kebab(t_field *matrix, t_figure *figure, int x, int y)
 {
+	char	**field;
+	int		i;
+	int		j;
 
+	i = 0;
+	field = matrix->field;
+	while (i < matrix->size)
+	{
+		j = 0;
+		while (j < matrix->size)
+		{
+			if (field[i][j] == figure->letter)
+				field[i][j] = '.';
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 /*
 ** hullo

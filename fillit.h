@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcherend <dcherend@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/14 15:58:48 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/16 13:11:31 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include "libft/libft.h"
 
-# define ABS(a) (a < 0 ? -a : a)
+# define ABS(a) (a < 0 ? -(a) : a)
 
 /*
 ** SUCCESS == zero because it is great for ending infinite loop
@@ -44,7 +44,7 @@ typedef	struct		s_figure
 typedef struct 		s_field
 {
 	char			**field;
-	int				size;
+	size_t			size;
 }					t_field;
 
 t_figure			*g_figure_list; /* We should delete this shit in future */
@@ -65,7 +65,7 @@ t_field 			*ft_realloc_field(t_field *fl, int	size);
 */
 t_figure			*read_figures(char *file);
 void				print_figure(t_figure *figure, int x, int y);
-void				print_matrix(t_matrix *matrix);
+void				print_matrix(t_field *matrix);
 void				print_char_matrix(char **matrix);
 t_el				*append_el(t_figure *figure, int x, int y, t_el *pivot);
 t_figure			*ft_create_figure_empty(void);
@@ -81,7 +81,7 @@ void				throw_error(char *message);
 /*
 ** Alternative solution
 */
-t_matrix			*matrix_realloc(char **matrix, size_t size);
+t_field				*matrix_realloc(char **matrix, size_t size);
 int					solve(t_figure *list, char **matrix);
 
 #endif
