@@ -54,7 +54,7 @@ t_field		*ft_realloc_field(t_field *fl, int size)
 	return (new_fl);
 }
 
-void	ft_print_field(t_field *fl)
+void		ft_print_field(t_field *fl)
 {
 	int	i;
 
@@ -69,15 +69,17 @@ void	ft_print_field(t_field *fl)
 int		ft_scanplace_field(t_field *fl, t_figure *fig, int i, int j)
 {
 	t_el 	*el;
-	
+	int		dx;
+	int		dy;
+
 	if (fl && fig)
 	{
 		el = fig->scheme;
 		while (el)
 		{
-			if ((i + el->y) > fl->size || (j + el->x) > fl->size)
-				return (0);
-			if (fl->field[i + el->y][j + el->x] != '.')
+			dx = j + el->x;
+			dy = i + el->y;
+			if (dx > fl->size || dy > fl->size || fl->field[dy][dx] != '.')
 				return (0);
 			el = el->next;
 		}
@@ -89,15 +91,29 @@ int		ft_scanplace_field(t_field *fl, t_figure *fig, int i, int j)
 void	ft_place_field(t_field *fl, t_figure *fig, int i, int j)
 {
 	t_el 	*el;
-
+	
 	if (fl && fig)
 	{
 		el = fig->scheme;
-		while (el)
+		if (ft_scanplace_field(fl, fig, i, j))
 		{
-			while ()
-			fl->field[i + el->y][j + el->x] = fig->letter;
-			el = el->next;
+			while (el)
+			{
+				fl->field[i + el->y][j + el->x] = fig->letter;
+				el = el->next;				
+			}
+		}
+		else
+		{
+			if (j < (fl->size - fig->width))
+				ft_place_field(fl, fig, i, j + 1);
+			else if (i < (fl->size - fig->height))
+				ft_place_field(fl, fig, i + 1, j);
+			else
+			{
+				fl = ft_realloc_field(fl, fl->size);
+				ft_place_field(fl, fig, i, j);
+			}
 		}
 	}
 }

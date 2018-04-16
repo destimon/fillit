@@ -6,7 +6,7 @@
 /*   By: dcherend <dcherend@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 14:21:20 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/14 18:29:10 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:23:32 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,24 @@ void			ft_fill_matrix(t_figure *fig)
 	t_field	*fl;
 	char	letter;
 	int		i;
+	int 	j;
 
 	i = 0;
+	j = 0;
 	letter = 'A';
 	/* Init 2x2 matrix */
-	fl = ft_alloc_field(5);
-	//ft_print_field(fl);
-	fl = ft_realloc_field(fl, 10);
-	//ft_place_field(fl, fig, 1, 1);
+	fl = ft_alloc_field(2);
+	while (fig)
+	{
+		fig->letter = letter;
+		ft_place_field(fl, fig, i, j);
+		fig = fig->next;
+		letter++;
+	}
 	ft_print_field(fl);
-	/* Iterate figures to matrix */
-	// while (fig)
-	// {
-	// 	fig->letter = letter;
-	// 	ft_enter_figure(fig, matrix);
-	// 	letter++;
-	// 	fig = fig->next;
-	// }
-	// return (matrix);
+}
+
+void		ft_brute_cases(t_figure *fig)
+{
+	ft_fill_matrix(fig);
 }

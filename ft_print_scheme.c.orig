@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_scheme.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/05 19:09:30 by dcherend          #+#    #+#             */
+<<<<<<< Updated upstream
+/*   Updated: 2018/04/13 12:57:14 by vtarasiu         ###   ########.fr       */
+=======
+/*   Updated: 2018/04/14 16:35:19 by dcherend         ###   ########.fr       */
+>>>>>>> Stashed changes
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <printf.h>
+#include "libft/libft.h"
+#include "fillit.h"
+
+void	print_figure(t_figure *figure, int x, int y)
+{
+	char	fig[5][7];
+	int		i;
+
+	i = 0;
+	while (i < 5)
+		ft_memset(fig[i++], '\0', 7);
+	i = 0;
+	while (i < 5)
+		ft_memset(fig[i++], '.', 5);
+	i = 0;
+	while (i < 5)
+		fig[i++][5] = '\n';
+	while (figure->scheme)
+	{
+		fig[y + figure->scheme->y][x + figure->scheme->x] = 'A';
+		figure->scheme = figure->scheme->next;
+	}
+	i = 0;
+	while (i < 5)
+		printf("%s", fig[i++]);
+}
+
+void	print_matrix(t_matrix *matrix)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < matrix->size)
+	{
+		j = 0;
+		while (j < matrix->size)
+		{
+
+		}
+	}
+}
