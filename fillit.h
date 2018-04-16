@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 13:11:31 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/16 17:32:18 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ t_field 			*ft_realloc_field(t_field *fl, int	size);
 ** I/O
 */
 t_figure			*read_figures(char *file);
-void				print_figure(t_figure *figure, int x, int y);
 void				print_matrix(t_field *matrix);
+void				println_matrix(t_field *matrix);
 void				print_char_matrix(char **matrix);
 t_el				*append_el(t_figure *figure, int x, int y, t_el *pivot);
 t_figure			*ft_create_figure_empty(void);
@@ -74,14 +74,15 @@ t_figure			*create_figure(const char *field);
 /*
 ** Validation
 */
+t_figure			*validate_list(t_figure *list);
 void				validate_neighbours(const char **fld, int x, int y);
-t_figure			*validate_figure(const t_figure *figure);
+t_figure			*validate_figure(t_figure *figure);
 void				throw_error(char *message);
 
 /*
 ** Alternative solution
 */
-t_field				*matrix_realloc(char **matrix, size_t size);
-int					solve(t_figure *list, char **matrix);
+t_field				*matrix_realloc(t_field *matrix, size_t size);
+int					solve(t_figure *list, t_field *matrix);
 
 #endif

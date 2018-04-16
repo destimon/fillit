@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 18:04:20 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 13:11:31 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/16 18:23:15 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** Also, I think here can be a memory leak.
 */
 
-t_field			*matrix_realloc(char **matrix, size_t size)
+t_field			*matrix_realloc(t_field *matrix, size_t size)
 {
 	size_t		i;
 	char		**copy;
@@ -35,11 +35,8 @@ t_field			*matrix_realloc(char **matrix, size_t size)
 	while (i < size)
 	{
 		copy[i] = (char *)ft_memalloc(sizeof(char) * (size + 1));
-		if (matrix[i])
-		{
-			ft_memcpy(copy, matrix[i], size + 1);
-			free(matrix[i]);
-		}
+		ft_memset(copy[i], '.', size);
+		free(matrix->field[i]);
 		i++;
 	}
 	free(matrix);
@@ -62,7 +59,9 @@ static int		try_piece(t_field *mtrx, t_figure *figure, int x, int y)
 	{
 		dx = scheme->x + x;
 		dy = scheme->y + y;
-		if (dx < mtrx->size && dy < mtrx->size && mtrx->field[dy][dx] == '#')
+		if (dx >= mtrx->size || dy >= mtrx->size)
+			return (0);
+		if (mtrx->field[dy][dx] != '.')
 			return (0);
 		scheme = scheme->next;
 	}
@@ -80,7 +79,7 @@ static int		write_piece(t_field *matrix, t_figure *figure, int x, int y)
 	{
 		dx = scheme->x + x;
 		dy = scheme->y + y;
-		if (matrix->field[dy][dx] > 'Z' || matrix->field[dy][dx] < 'A')
+		if (matrix->field[dy][dx] == '.')
 			matrix->field[dy][dx] = figure->letter;
 		else
 		{
@@ -148,9 +147,44 @@ static int		remove_kebab(t_field *matrix, t_figure *figure, int x, int y)
 ** hullo
 */
 
-int				solve(t_figure *list, char **matrix)
+int				solve(t_figure *list, t_field *matrix)
 {
-	int i;
+	static char	letter = 'A';
+	int			i;
+	int			j;
+	int			status;
 
-	return (SUCCESS);
+	i = -1;
+	status = 1;
+	while (list)
+	{
+		while (++i < matrix->size && status)
+		{
+			j = -1;
+			while (++j < matrix->size)
+			{
+				if (try_piece(matrix, list, j, i))
+				{
+					list->letter = letter++;
+					write_piece(matrix, list, j, i);
+					println_matrix(matrix);
+					if (!solve(list->next, matrix))
+					{
+						status = 0;
+						break ;
+					}
+				}
+			}
+		}
+		if (list)
+			list = list->next;
+	}
+	if (status == 1)
+		return (SUCCESS);
+	else if (i > matrix->size)
+		return (1);
+	//if (list == NULL)
+	//	return (1);
+	//else
+
 }

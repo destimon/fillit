@@ -6,16 +6,34 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/12 17:34:23 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/16 15:18:16 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <printf.h>
 #include "fillit.h"
 
 /*
 ** Possible bug in here.
-** TODO: Consider just removing NULL check in main function
 */
+
+t_figure	*validate_list(t_figure *list)
+{
+	int			i;
+	t_figure	*copy;
+
+	i = 0;
+	copy = list;
+	while (list)
+	{
+		i++;
+		list = list->next;
+	}
+	printf("Pieces: %d\n", i);
+	if (i > 26)
+		throw_error("Too many pieces.");
+	return (copy);
+}
 
 static char	**get_buf(const char *field)
 {
@@ -90,7 +108,7 @@ t_figure	*read_figures(char *file)
 			}
 		else
 			throw_error("Invalid data format.");
-	g_figure_list = list_head;
+	g_figure_list = validate_list(list_head);
 	close(fd);
 	return (g_figure_list);
 }

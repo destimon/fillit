@@ -72,11 +72,11 @@ void			ft_fill_matrix(t_figure *fig)
 	i = 0;
 	letter = 'A';
 	/* Init 2x2 matrix */
-	fl = ft_alloc_field(5);
+	//fl = ft_alloc_field(5);
 	//ft_print_field(fl);
-	fl = ft_realloc_field(fl, 10);
+	//fl = ft_realloc_field(fl, 10);
 	//ft_place_field(fl, fig, 1, 1);
-	ft_print_field(fl);
+	//ft_print_field(fl);
 	/* Iterate figures to matrix */
 	// while (fig)
 	// {

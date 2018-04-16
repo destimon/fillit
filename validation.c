@@ -53,7 +53,7 @@ static int	check_inside(const char **fld, int x, int y)
 	return (0);
 }
 
-t_figure	*validate_figure(const t_figure *figure)
+t_figure	*validate_figure(t_figure *figure)
 {
 	int		points;
 	int		x;
@@ -73,7 +73,7 @@ t_figure	*validate_figure(const t_figure *figure)
 	}
 	if (points != 4)
 		throw_error("Less than 4 points in figure.");
-	return ((t_figure *)figure);
+	return (figure);
 }
 
 void		validate_neighbours(const char **fld, int x, int y)
