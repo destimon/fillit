@@ -16,3 +16,16 @@ t_figure	*ft_create_figure(t_el *scheme)
 	}
 	return (NULL);
 }
+
+int			ft_count_figure(t_figure *fig)
+{
+	int	i;
+
+	i = 0;
+	while (fig)
+	{
+		i++;
+		fig = fig->next;
+	}
+	return (i);
+}
