@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 18:04:20 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 18:23:15 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/17 19:36:32 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ static int		try_piece(t_field *mtrx, t_figure *figure, int x, int y)
 		if (mtrx->field[dy][dx] != '.')
 			return (0);
 		scheme = scheme->next;
+	}
+	dy = -1;
+	while (++dy < mtrx->size)
+	{
+		dx = -1;
+		while (++dx < mtrx->size)
+			if (mtrx->field[dy][dx] == figure->letter)
+				return (0);
 	}
 	return (1);
 }
@@ -143,17 +151,48 @@ static int		remove_kebab(t_field *matrix, t_figure *figure, int x, int y)
 	}
 	return (1);
 }
+
 /*
-** hullo
+** Moves specified element to the beginning of the list and runs main function
+*/
+
+int			solve_from(t_figure *list, t_field *matrix, int index)
+{
+	t_figure	*copy;
+	t_figure	*last;
+
+	if (list == NULL)
+		return (-1);
+	copy = list;
+	last = NULL;
+	while (copy)
+	{
+		if (index-- == 0 && last != NULL)
+		{
+			last->next = copy->next;
+			copy->next = list;
+			list = copy;
+			break ;
+		}
+		if (last == NULL)
+			last = copy;
+		copy = copy->next;
+	}
+	return (solve(list, matrix));
+}
+
+/*
+** This solution is real. --ish.
 */
 
 int				solve(t_figure *list, t_field *matrix)
 {
-	static char	letter = 'A';
 	int			i;
 	int			j;
 	int			status;
+	t_figure	*copy;
 
+	copy = list;
 	i = -1;
 	status = 1;
 	while (list)
@@ -163,26 +202,25 @@ int				solve(t_figure *list, t_field *matrix)
 			j = -1;
 			while (++j < matrix->size)
 			{
-				if (try_piece(matrix, list, j, i))
+				if (list->is_used == 0 && try_piece(matrix, list, j, i))
 				{
-					list->letter = letter++;
 					write_piece(matrix, list, j, i);
+					list->is_used = 1;
 					println_matrix(matrix);
-					if (!solve(list->next, matrix))
+					if (solve(copy->next, matrix) == 0)
 					{
 						status = 0;
 						break ;
 					}
 				}
+				//else if (list->is_used == 1)
+				//	return (SUCCESS);
 			}
 		}
-		if (list)
-			list = list->next;
+		list = list->next;
 	}
-	if (status == 1)
+	if(are_all_used(copy))
 		return (SUCCESS);
-	else if (i > matrix->size)
-		return (1);
 	//if (list == NULL)
 	//	return (1);
 	//else

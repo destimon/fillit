@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:58:58 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/07 16:35:05 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/17 17:11:08 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,63 @@ t_el		*append_el(t_figure *figure, int x, int y, t_el *pivot)
 		copy->next = ft_create_el(x - pivot->x, y - pivot->y);
 		return (figure->scheme);
 	}
+}
+
+t_figure	*assign_letters(t_figure *list)
+{
+	char		letter;
+	t_figure	*copy;
+
+	letter = 'A';
+	copy = list;
+	while (copy)
+	{
+		copy->letter = letter++;
+		copy = copy->next;
+	}
+	return (list);
+}
+
+t_figure	*set_unused(t_figure *list)
+{
+	t_figure	*copy;
+
+	copy = list;
+	while (copy)
+	{
+		copy->is_used = 0;
+		copy = copy->next;
+	}
+	return (list);
+}
+
+int			are_all_used(t_figure *list)
+{
+	t_figure	*copy;
+
+	copy = list;
+	while (copy)
+	{
+		if(copy->is_used == 0)
+			return (0);
+		copy = copy->next;
+	}
+	return (1);
+}
+
+int			list_size(t_figure *list)
+{
+	int			i;
+	t_figure	*copy;
+
+	i = 0;
+	copy = list;
+	while (list)
+	{
+		i++;
+		list = list->next;
+	}
+	return (i);
 }
 
 t_figure	*ft_create_figure_empty(void)

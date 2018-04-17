@@ -19,20 +19,10 @@
 
 t_figure	*validate_list(t_figure *list)
 {
-	int			i;
-	t_figure	*copy;
-
-	i = 0;
-	copy = list;
-	while (list)
-	{
-		i++;
-		list = list->next;
-	}
-	printf("Pieces: %d\n", i);
-	if (i > 26)
+	printf("Pieces: %d\n", list_size(list));
+	if (list_size(list) > 26)
 		throw_error("Too many pieces.");
-	return (copy);
+	return (list);
 }
 
 static char	**get_buf(const char *field)
