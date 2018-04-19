@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/27 15:01:25 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/27 17:52:09 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	ft_strclr(char *s)
 {
-	t_el	*new;
-
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	if (s)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		while (*s)
+		{
+			*s = '\0';
+			s++;
+		}
 	}
-	return (NULL);
 }

@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_recursive_power.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/31 13:44:41 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 13:45:27 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+int		ft_recursive_power(int nb, int power)
 {
-	t_el	*new;
-
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
-	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
-	}
-	return (NULL);
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	return (nb * ft_recursive_power(nb, power - 1));
 }

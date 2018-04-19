@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/31 20:49:19 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 20:50:11 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+int		ft_sqrt(int nb)
 {
-	t_el	*new;
+	int	root;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	root = 1;
+	if (nb == 0)
+		return (0);
+	while (root <= (nb / 2))
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		if (root * root == nb)
+			return (root);
+		root++;
 	}
-	return (NULL);
+	return (0);
 }

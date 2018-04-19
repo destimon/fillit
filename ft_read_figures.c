@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "fillit.h"
 
 /*
@@ -19,7 +18,6 @@
 
 t_figure	*validate_list(t_figure *list)
 {
-	printf("Pieces: %d\n", list_size(list));
 	if (list_size(list) > 26)
 		throw_error("Too many pieces.");
 	return (list);

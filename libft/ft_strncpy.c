@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/22 16:16:39 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/27 15:51:37 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	t_el	*new;
+	size_t i;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	i = 0;
+	if (len == 0)
+		return (dst);
+	while (i < len && src[i])
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		dst[i] = src[i];
+		i++;
 	}
-	return (NULL);
+	while (i < len)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
 }

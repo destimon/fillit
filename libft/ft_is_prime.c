@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/31 13:41:26 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 13:45:37 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+int		ft_is_prime(int nb)
 {
-	t_el	*new;
+	int	d;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
-	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
-	}
-	return (NULL);
+	if (nb % 2 == 0)
+		return (nb == 2);
+	d = 3;
+	while ((d * d <= nb) && (nb % d != 0))
+		d += 2;
+	return (d * d > nb);
 }

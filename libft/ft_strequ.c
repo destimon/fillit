@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/27 17:55:29 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 17:20:18 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+int		ft_strequ(char const *s1, char const *s2)
 {
-	t_el	*new;
-
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	if (s1 && s2)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		if (ft_strlen(s1) != ft_strlen(s2))
+			return (0);
+		while (*s1 && *s2)
+		{
+			if (*s1 != *s2)
+				return (0);
+			s1++;
+			s2++;
+		}
 	}
-	return (NULL);
+	else
+		return (0);
+	return (1);
 }

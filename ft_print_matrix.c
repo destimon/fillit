@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/16 14:17:43 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 14:58:28 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		print_matrix(t_field *matrix)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (i < matrix->size)
@@ -40,8 +40,8 @@ void		println_matrix(t_field *matrix)
 
 void		print_char_matrix(char **matrix)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (matrix[i])

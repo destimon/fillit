@@ -53,33 +53,6 @@ t_figure	*assign_letters(t_figure *list)
 	return (list);
 }
 
-t_figure	*set_unused(t_figure *list)
-{
-	t_figure	*copy;
-
-	copy = list;
-	while (copy)
-	{
-		copy->is_used = 0;
-		copy = copy->next;
-	}
-	return (list);
-}
-
-int			are_all_used(t_figure *list)
-{
-	t_figure	*copy;
-
-	copy = list;
-	while (copy)
-	{
-		if(copy->is_used == 0)
-			return (0);
-		copy = copy->next;
-	}
-	return (1);
-}
-
 int			list_size(t_figure *list)
 {
 	int			i;

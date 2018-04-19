@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/21 17:50:42 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/23 15:20:05 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_el	*new;
+	const char		*str;
+	size_t			i;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	str = (char*)s;
+	i = 0;
+	while (i < n)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		if ((unsigned char)*str == (unsigned char)c)
+		{
+			return ((void*)str);
+		}
+		str++;
+		i++;
 	}
 	return (NULL);
 }

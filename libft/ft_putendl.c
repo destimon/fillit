@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/29 13:04:19 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/29 13:05:32 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	ft_putendl(char const *s)
 {
-	t_el	*new;
-
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	if (s)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		ft_putstr(s);
+		ft_putchar('\n');
 	}
-	return (NULL);
 }

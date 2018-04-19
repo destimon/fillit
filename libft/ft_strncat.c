@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/22 17:43:49 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 17:17:59 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	t_el	*new;
+	size_t	i;
+	size_t	j;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+		i++;
+	while (s2[j] != '\0' && j < n)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		s1[i] = s2[j++];
+		i++;
 	}
-	return (NULL);
+	s1[i] = '\0';
+	return (s1);
 }

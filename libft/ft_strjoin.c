@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/29 13:37:17 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/29 13:46:05 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_el	*new;
+	char *str;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	if (s1 && s2)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		str = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
+		if (str)
+		{
+			str = ft_strncat(str, s1, ft_strlen(s1));
+			str = ft_strncat(str, s2, ft_strlen(s2));
+			return (str);
+		}
 	}
 	return (NULL);
 }

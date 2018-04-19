@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_set.c                                    :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/07 16:12:06 by dcherend          #+#    #+#             */
-/*   Updated: 2018/04/10 14:11:17 by dcherend         ###   ########.fr       */
+/*   Created: 2018/03/21 14:07:56 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 16:45:45 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_figure 	*ft_create_set(t_figure *fig)
+void	*ft_memccpy(void *dst, const void *src, int c,
+		size_t n)
 {
-	t_figure	*prev;
-	t_figure	*start;
+	const char		*s;
+	char			*d;
+	size_t			i;
 
-	start = fig;
-	prev = fig;
-	fig = fig->next;
-	while (fig)
-	{	
-		prev = fig;
-		fig = fig->next;
+	i = 0;
+	s = (char*)src;
+	d = (char*)dst;
+	while (i < n)
+	{
+		if ((unsigned char)*s == (unsigned char)c)
+		{
+			*d++ = *s++;
+			return ((void*)d);
+		}
+		*d++ = *s++;
+		i++;
 	}
-	return (start);
+	return (NULL);
 }

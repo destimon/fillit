@@ -6,16 +6,15 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:23:12 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/17 19:36:32 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/19 17:59:13 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "fillit.h"
 
 int		main(int argc, char **argv)
 {
-	size_t		initial_size;
+	int			initial_size;
 	t_figure	*figures;
 	t_field		*field;
 	int			i;
@@ -36,22 +35,8 @@ int		main(int argc, char **argv)
 	}
 	field->field = matrix;
 	field->size = initial_size;
-	/*
-	 * TODO: add another loop that tries all figures and finds smallest square.
-	 *
-	 * Maybe, should calculate smallest possible area from number of
-	 * figures or just store somewhere matrix.
-	 *
-	 * And don't forget to clear memory.
-	 */
-	i = 0;
-	while (i < list_size(g_figure_list))
-	{
-		while (solve_from(set_unused(figures), field, i))
-			field = matrix_realloc(field, ++initial_size);
-		i++;
-	}
+	while (backtrace(field, figures))
+		field = matrix_realloc(field, ++initial_size);
 	println_matrix(field);
-	printf("\nSuccess!\nSize of matrix: %zu\n", field->size);
 	return (0);
 }

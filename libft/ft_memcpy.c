@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/21 13:43:10 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 17:30:33 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_el	*new;
+	size_t		i;
+	char		*d;
+	const char	*s;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	i = 0;
+	d = (char*)dst;
+	s = (char*)src;
+	while (i < n)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		d[i] = s[i];
+		i++;
 	}
-	return (NULL);
+	return ((void*)dst);
 }

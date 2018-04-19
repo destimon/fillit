@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/29 13:57:51 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/30 18:03:50 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	*ft_memalloc(size_t size)
 {
-	t_el	*new;
+	size_t		i;
+	char		*str;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	i = 0;
+	str = (char*)malloc(sizeof(str) * size);
+	if (!str)
+		return (NULL);
+	while (i < size)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		str[i] = '\0';
+		i++;
 	}
-	return (NULL);
+	return ((void*)str);
 }

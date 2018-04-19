@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 13:11:31 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/19 18:03:10 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,29 @@
 
 # define ABS(a) (a < 0 ? -(a) : a)
 
-/*
-** SUCCESS == zero because it is great for ending infinite loop
-*/
-
-# define SUCCESS 0
-
-typedef	struct		s_el
+typedef struct		s_el
 {
 	int				x;
 	int				y;
 	struct s_el		*next;
 }					t_el;
 
-typedef	struct		s_figure
+typedef struct		s_figure
 {
 	char			letter;
-	int				width;
-	int 			height;
-	int				is_used;
 	t_el			*scheme;
 	struct s_figure	*next;
 }					t_figure;
 
-typedef struct 		s_field
+typedef struct		s_field
 {
 	char			**field;
-	int 			size;
+	int				size;
 }					t_field;
 
-t_figure			*g_figure_list; /* We should delete this shit in future */
+t_figure			*g_figure_list;
 
 t_el				*ft_create_el(int x, int y);
-t_figure			*ft_create_figure(t_el *scheme);
-void				ft_fill_matrix(t_figure *fig);
-t_figure			*ft_create_set(t_figure *fig);
-void				ft_define_sizes(t_figure *fig);
-int					ft_count_figure(t_figure *fig);
-
-/* Field changing tools */
-void				ft_print_field(t_field *fl);
-t_field				*ft_alloc_field(int size);
-void				ft_del_field(t_field *fl);
-t_field 			*ft_realloc_field(t_field *fl, int	size);
-void				ft_place_field(t_field *fl, t_figure *fig, int i, int j);
 
 /*
 ** I/O
@@ -75,23 +54,20 @@ t_el				*append_el(t_figure *figure, int x, int y, t_el *pivot);
 t_figure			*ft_create_figure_empty(void);
 t_figure			*create_figure(const char *field);
 t_figure			*assign_letters(t_figure *list);
-t_figure			*set_unused(t_figure *list);
-int					are_all_used(t_figure *list);
 
 /*
 ** Validation
 */
+void				throw_error(char *message);
 int					list_size(t_figure *list);
 t_figure			*validate_list(t_figure *list);
-void				validate_neighbours(const char **fld, int x, int y);
 t_figure			*validate_figure(t_figure *figure);
-void				throw_error(char *message);
+void				validate_neighbours(const char **fld, int x, int y);
 
 /*
 ** Alternative solution
 */
 t_field				*matrix_realloc(t_field *matrix, size_t size);
-int					solve(t_figure *list, t_field *matrix);
-int					solve_from(t_figure *list, t_field *matrix, int index);
+int					backtrace(t_field *matrix, t_figure *list);
 
 #endif

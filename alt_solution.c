@@ -6,10 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 18:04:20 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/17 19:36:32 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <printf.h>
 #include "libft/libft.h"
 #include "fillit.h"
 
@@ -100,129 +101,59 @@ static int		write_piece(t_field *matrix, t_figure *figure, int x, int y)
 }
 
 /*
-** Removes piece by passing all figure points and deleting all letters there.
-*/
-
-static int		remove_piece(t_field *matrix, t_figure *figure, int x, int y)
-{
-	t_el	*scheme;
-	int		dx;
-	int		dy;
-
-	scheme = figure->scheme;
-	while (scheme)
-	{
-		dx = scheme->x + x;
-		dy = scheme->y + y;
-		if (matrix->field[dy][dx] == figure->letter)
-			matrix->field[dy][dx] = '.';
-		else
-		{
-			print_matrix(matrix);
-			throw_error("Attempt to remove wrong piece");
-		}
-		scheme = scheme->next;
-	}
-	return (1);
-}
-
-/*
 ** Removes piece by deleting all its letters.
 */
 
-static int		remove_kebab(t_field *matrix, t_figure *figure, int x, int y)
+static t_figure	*remove_all_pieces(t_field *matrix, t_figure *figure)
 {
 	char	**field;
 	int		i;
 	int		j;
 
-	i = 0;
-	field = matrix->field;
-	while (i < matrix->size)
+	while (figure)
 	{
-		j = 0;
-		while (j < matrix->size)
+		field = matrix->field;
+		i = 0;
+		while (i < matrix->size)
 		{
-			if (field[i][j] == figure->letter)
-				field[i][j] = '.';
-			j++;
+			j = 0;
+			while (j < matrix->size)
+			{
+				if (field[i][j] == figure->letter)
+					field[i][j] = '.';
+				j++;
+			}
+			i++;
 		}
-		i++;
+		figure = figure->next;
 	}
-	return (1);
+	return (figure);
 }
 
-/*
-** Moves specified element to the beginning of the list and runs main function
-*/
-
-int			solve_from(t_figure *list, t_field *matrix, int index)
+int				backtrace(t_field *matrix, t_figure *list)
 {
-	t_figure	*copy;
-	t_figure	*last;
+	int		x;
+	int		y;
 
 	if (list == NULL)
-		return (-1);
-	copy = list;
-	last = NULL;
-	while (copy)
+		return (0);
+	y = -1;
+	while (++y < matrix->size)
 	{
-		if (index-- == 0 && last != NULL)
+		x = -1;
+		while (++x < matrix->size)
 		{
-			last->next = copy->next;
-			copy->next = list;
-			list = copy;
-			break ;
-		}
-		if (last == NULL)
-			last = copy;
-		copy = copy->next;
-	}
-	return (solve(list, matrix));
-}
-
-/*
-** This solution is real. --ish.
-*/
-
-int				solve(t_figure *list, t_field *matrix)
-{
-	int			i;
-	int			j;
-	int			status;
-	t_figure	*copy;
-
-	copy = list;
-	i = -1;
-	status = 1;
-	while (list)
-	{
-		while (++i < matrix->size && status)
-		{
-			j = -1;
-			while (++j < matrix->size)
+			if (try_piece(matrix, list, x, y))
 			{
-				if (list->is_used == 0 && try_piece(matrix, list, j, i))
-				{
-					write_piece(matrix, list, j, i);
-					list->is_used = 1;
-					println_matrix(matrix);
-					if (solve(copy->next, matrix) == 0)
-					{
-						status = 0;
-						break ;
-					}
-				}
-				//else if (list->is_used == 1)
-				//	return (SUCCESS);
+				write_piece(matrix, list, x, y);
+				if (backtrace(matrix, list->next) != 0)
+					remove_all_pieces(matrix, list);
+				else
+					return (0);
 			}
 		}
-		list = list->next;
 	}
-	if(are_all_used(copy))
-		return (SUCCESS);
-	//if (list == NULL)
-	//	return (1);
-	//else
-
+	if (list_size(list) != 0)
+		return (1);
+	return (1);
 }

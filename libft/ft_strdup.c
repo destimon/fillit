@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/22 15:03:11 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 17:32:52 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+char	*ft_strdup(const char *s1)
 {
-	t_el	*new;
+	size_t		i;
+	size_t		len;
+	char		*s2;
 
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	len = ft_strlen(s1);
+	i = 0;
+	s2 = ft_strnew(len);
+	if (s2)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		while (i < len)
+		{
+			s2[i] = s1[i];
+			i++;
+		}
+		s2[i] = '\0';
+		return ((char*)s2);
 	}
 	return (NULL);
 }

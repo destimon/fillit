@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_el.c                                     :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcherend <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/19 18:01:09 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/03/30 16:00:24 by dcherend          #+#    #+#             */
+/*   Updated: 2018/03/31 16:54:23 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-t_el	*ft_create_el(int x, int y)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	t_el	*new;
-
-	new = (t_el*)malloc(sizeof(t_el));
-	if (new)
+	if (alst && *alst && del)
 	{
-		new->x = x;
-		new->y = y;
-		new->next = NULL;
-		return (new);
+		while (*alst)
+		{
+			del((*alst)->content, (*alst)->content_size);
+			free(*alst);
+			(*alst) = (*alst)->next;
+		}
 	}
-	return (NULL);
 }
