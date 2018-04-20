@@ -19,7 +19,7 @@
 t_figure	*validate_list(t_figure *list)
 {
 	if (list_size(list) > 26)
-		throw_error("Too many pieces.");
+		throw_error();
 	return (list);
 }
 
@@ -29,7 +29,7 @@ static char	**get_buf(const char *field)
 
 	buf = ft_strsplit(field, '\n');
 	if (buf == NULL)
-		throw_error("strsplit returned NULL. **DAFUQ?!**");
+		throw_error();
 	return (buf);
 }
 
@@ -39,7 +39,7 @@ static int	get_fd(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		throw_error("File not found.");
+		throw_error();
 	return (fd);
 }
 
@@ -95,7 +95,7 @@ t_figure	*read_figures(char *file)
 				g_figure_list = g_figure_list->next;
 			}
 		else
-			throw_error("Invalid data format.");
+			throw_error();
 	g_figure_list = validate_list(list_head);
 	close(fd);
 	return (g_figure_list);

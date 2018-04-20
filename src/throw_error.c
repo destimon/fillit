@@ -12,13 +12,8 @@
 
 #include "fillit.h"
 
-void	throw_error(char *message)
+void	throw_error()
 {
 	write(1, "error\n", 6);
-	if (message)
-	{
-		ft_putstr_fd(message, 1);
-		ft_putchar_fd('\n', 1);
-	}
 	exit(1);
 }

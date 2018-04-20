@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:03:10 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 14:03:03 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 # define ABS(a) (a < 0 ? -(a) : a)
 
@@ -58,7 +58,7 @@ t_figure			*assign_letters(t_figure *list);
 /*
 ** Validation
 */
-void				throw_error(char *message);
+void				throw_error();
 int					list_size(t_figure *list);
 t_figure			*validate_list(t_figure *list);
 t_figure			*validate_figure(t_figure *figure);

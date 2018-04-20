@@ -6,12 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 18:04:20 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 18:02:01 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 13:33:38 by dcherend         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf.h>
-#include "libft/libft.h"
 #include "fillit.h"
 
 /*

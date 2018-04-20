@@ -32,7 +32,7 @@ t_el		*append_el(t_figure *figure, int x, int y, t_el *pivot)
 			copy = copy->next;
 		}
 		if (i + 1 > 4)
-			throw_error("Attempt to add 5th point.");
+			throw_error();
 		copy->next = ft_create_el(x - pivot->x, y - pivot->y);
 		return (figure->scheme);
 	}
@@ -79,6 +79,6 @@ t_figure	*ft_create_figure_empty(void)
 		new->next = NULL;
 	}
 	else
-		throw_error("Figure malloc failed.");
+		throw_error();
 	return (new);
 }
