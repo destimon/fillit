@@ -6,11 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:31 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/12 16:26:22 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 17:39:40 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../include/fillit.h"
 
 static int	check_sides(const char **fld, int x, int y)
 {
@@ -62,6 +62,8 @@ t_figure	*validate_figure(t_figure *figure)
 
 	points = 1;
 	copy = figure->scheme;
+	if (copy == NULL)
+		return (figure);
 	while (copy->next)
 	{
 		x = ABS(copy->next->x) - ABS(copy->x);
@@ -82,6 +84,8 @@ void		validate_neighbours(const char **fld, int x, int y)
 
 	if ((fld[y][x] != '.' && fld[y][x] != '\n' && fld[y][x] != '#'))
 		throw_error("Invalid character in buffer.");
+	if (x == 4 && fld[y][x] != '\n')
+		throw_error("No newline.");
 	if (fld[y][x] == '.')
 		return ;
 	score = check_corners(fld, x, y) + check_sides(fld, x, y) +

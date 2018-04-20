@@ -6,11 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:23:12 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/19 17:59:13 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 17:49:34 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../include/fillit.h"
 
 int		main(int argc, char **argv)
 {
@@ -37,6 +37,10 @@ int		main(int argc, char **argv)
 	field->size = initial_size;
 	while (backtrace(field, figures))
 		field = matrix_realloc(field, ++initial_size);
-	println_matrix(field);
+	system("leaks fillit");
+	if (field->size > 2)
+		println_matrix(field);
+	else
+		throw_error("No figures.");
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 17:58:58 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/17 17:11:08 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 17:40:31 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../include/fillit.h"
 
 t_el		*append_el(t_figure *figure, int x, int y, t_el *pivot)
 {
@@ -32,7 +32,7 @@ t_el		*append_el(t_figure *figure, int x, int y, t_el *pivot)
 			copy = copy->next;
 		}
 		if (i + 1 > 4)
-			throw_error();
+			throw_error("Attempt to add 5th element");
 		copy->next = ft_create_el(x - pivot->x, y - pivot->y);
 		return (figure->scheme);
 	}
@@ -79,6 +79,6 @@ t_figure	*ft_create_figure_empty(void)
 		new->next = NULL;
 	}
 	else
-		throw_error();
+		throw_error("Malloc failed.");
 	return (new);
 }

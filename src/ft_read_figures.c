@@ -6,11 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/16 15:18:16 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/20 17:42:01 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../include/fillit.h"
 
 /*
 ** Possible bug in here.
@@ -19,7 +19,7 @@
 t_figure	*validate_list(t_figure *list)
 {
 	if (list_size(list) > 26)
-		throw_error();
+		throw_error("Too many figures.");
 	return (list);
 }
 
@@ -29,7 +29,7 @@ static char	**get_buf(const char *field)
 
 	buf = ft_strsplit(field, '\n');
 	if (buf == NULL)
-		throw_error();
+		throw_error("Strsplit returned null");
 	return (buf);
 }
 
@@ -39,7 +39,7 @@ static int	get_fd(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		throw_error();
+		throw_error("File does not exist");
 	return (fd);
 }
 
@@ -83,7 +83,7 @@ t_figure	*read_figures(char *file)
 	g_figure_list = NULL;
 	fd = get_fd(file);
 	while ((bytes = read(fd, buffer, 21)) > 0)
-		if ((bytes == 19 || bytes == 21))
+		if ((bytes == 19 || bytes == 21) && buffer[4] == '\n')
 			if (g_figure_list == NULL)
 			{
 				g_figure_list = validate_figure(create_figure(buffer));
@@ -95,7 +95,7 @@ t_figure	*read_figures(char *file)
 				g_figure_list = g_figure_list->next;
 			}
 		else
-			throw_error();
+			throw_error("Invalid data format.");
 	g_figure_list = validate_list(list_head);
 	close(fd);
 	return (g_figure_list);

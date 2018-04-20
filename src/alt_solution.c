@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
-#include "fillit.h"
+#include "../include/fillit.h"
 
 /*
 ** @param size - desired size.

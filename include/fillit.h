@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/20 14:03:03 by dcherend         ###   ########.fr       */
+/*   Updated: 2018/04/20 17:45:02 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_figure			*assign_letters(t_figure *list);
 /*
 ** Validation
 */
-void				throw_error();
+void				throw_error(char *message);
 int					list_size(t_figure *list);
 t_figure			*validate_list(t_figure *list);
 t_figure			*validate_figure(t_figure *figure);
