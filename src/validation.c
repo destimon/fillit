@@ -6,10 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:31 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/20 17:39:40 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 15:27:04 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <printf.h>
 #include "../include/fillit.h"
 
 static int	check_sides(const char **fld, int x, int y)
@@ -53,23 +54,48 @@ static int	check_inside(const char **fld, int x, int y)
 	return (0);
 }
 
+static void	find_connections(t_figure *figure)
+{
+	int		c;
+	int		x;
+	int		y;
+	t_el	*elements;
+	t_el	*iter;
+
+	c = 0;
+	iter = figure->scheme;
+	while (iter)
+	{
+		elements = figure->scheme;
+		while (elements->next)
+		{
+			x = ABS(elements->next->x) - ABS(elements->x);
+			y = ABS(elements->next->y) - ABS(elements->y);
+			if (!(x >= 1 && y >= 1))
+				c++;
+			elements = elements->next;
+		}
+		iter = iter->next;
+	}
+	if (c != 12 && c != 8)
+	{
+		//printf("Connections: %d\n", c);
+		throw_error("Some point is disconnected from other.");
+	}
+}
+
 t_figure	*validate_figure(t_figure *figure)
 {
 	int		points;
-	int		x;
-	int		y;
 	t_el	*copy;
 
-	points = 1;
+	points = 0;
 	copy = figure->scheme;
 	if (copy == NULL)
 		return (figure);
-	while (copy->next)
+	find_connections(figure);
+	while (copy)
 	{
-		x = ABS(copy->next->x) - ABS(copy->x);
-		y = ABS(copy->next->y) - ABS(copy->y);
-		if (x >= 1 && y >= 1)
-			throw_error("Some points are disconnected from each other.");
 		copy = copy->next;
 		points++;
 	}

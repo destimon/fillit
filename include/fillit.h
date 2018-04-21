@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/20 17:45:02 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 14:01:40 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,11 @@ void				validate_neighbours(const char **fld, int x, int y);
 */
 t_field				*matrix_realloc(t_field *matrix, size_t size);
 int					backtrace(t_field *matrix, t_figure *list);
+
+/*
+** Memory
+*/
+void				clear_figures(t_figure *list);
+void				clear_field(t_field *field);
 
 #endif

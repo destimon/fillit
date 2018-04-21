@@ -23,7 +23,7 @@ CFLAGS 			= -Wall -Werror -Wextra -I$(HDR_DIR) -I$(LIB_HDR_DIR)
 
 SRC 			= 	alt_solution.c figure_utils.c ft_create_el.c \
 					ft_print_matrix.c ft_read_figures.c \
-        			test.c throw_error.c validation.c
+        			test.c throw_error.c validation.c memory_management.c
 OBJ 			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 LIB_BIN 		= $(LIB_DIR)libft.a

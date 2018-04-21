@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   throw_error.c                                      :+:      :+:    :+:   */
+/*   memory_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/05 19:18:08 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/21 15:23:39 by vtarasiu         ###   ########.fr       */
+/*   Created: 2018/04/21 13:55:38 by vtarasiu          #+#    #+#             */
+/*   Updated: 2018/04/21 14:05:10 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fillit.h"
 
-void	throw_error(char *message)
+void		clear_figures(t_figure *list)
 {
-	write(1, "error\n", 6);
-	if (message && 0)
+	t_el		*el;
+	t_el		*swap;
+	t_figure	*temp;
+
+	while (list)
 	{
-		ft_putstr_fd(message, 1);
-		ft_putchar_fd('\n', 1);
+		el = list->scheme;
+		while (el)
+		{
+			swap = el->next;
+			free(el);
+			el = swap;
+		}
+		temp = list->next;
+		free(list);
+		list = temp;
 	}
-	exit(1);
+}
+
+void		clear_field(t_field *field)
+{
+	int		i;
+
+	i = 0;
+	while (i < field->size)
+		free(field->field[i++]);
+	free(field);
 }

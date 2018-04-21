@@ -6,15 +6,11 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/20 17:42:01 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 15:32:48 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fillit.h"
-
-/*
-** Possible bug in here.
-*/
 
 t_figure	*validate_list(t_figure *list)
 {

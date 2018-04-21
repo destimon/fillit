@@ -56,10 +56,8 @@ t_figure	*assign_letters(t_figure *list)
 int			list_size(t_figure *list)
 {
 	int			i;
-	t_figure	*copy;
 
 	i = 0;
-	copy = list;
 	while (list)
 	{
 		i++;

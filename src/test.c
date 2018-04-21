@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:23:12 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/20 17:49:34 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 15:22:54 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int		main(int argc, char **argv)
 	field->size = initial_size;
 	while (backtrace(field, figures))
 		field = matrix_realloc(field, ++initial_size);
-	system("leaks fillit");
-	if (field->size > 2)
+	clear_figures(figures);
+	if (field->size >= 2 && list_size(figures) > 0)
 		println_matrix(field);
 	else
 		throw_error("No figures.");
+	clear_field(field);
 	return (0);
 }
