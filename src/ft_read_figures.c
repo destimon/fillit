@@ -6,13 +6,13 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 19:18:51 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/21 15:32:48 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 18:23:25 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fillit.h"
 
-t_figure	*validate_list(t_figure *list)
+t_figure	*val_list(t_figure *list)
 {
 	if (list_size(list) > 26)
 		throw_error("Too many figures.");
@@ -31,12 +31,22 @@ static char	**get_buf(const char *field)
 
 static int	get_fd(char *file)
 {
-	int		fd;
+	int			fd;
+	int			i;
+	long long	bytes;
+	char		buf[1024];
 
+	i = -1;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		throw_error("File does not exist");
-	return (fd);
+	if ((bytes = read(fd, buf, 1024)) % 21 != 20)
+		throw_error("File size does not match.");
+	while (++i < bytes)
+		if (buf[i] != '\n' && buf[i] != '#' && buf[i] != '.')
+			throw_error("Invalid character.");
+	close(fd);
+	return (open(file, O_RDONLY));
 }
 
 t_figure	*create_figure(const char *field)
@@ -71,28 +81,28 @@ t_figure	*create_figure(const char *field)
 t_figure	*read_figures(char *file)
 {
 	int			fd;
-	char		buffer[21];
+	char		buf[21];
 	t_figure	*list_head;
 	long long	bytes;
 
 	list_head = NULL;
 	g_figure_list = NULL;
 	fd = get_fd(file);
-	while ((bytes = read(fd, buffer, 21)) > 0)
-		if ((bytes == 19 || bytes == 21) && buffer[4] == '\n')
+	while ((bytes = read(fd, buf, 21)) > 0)
+		if ((bytes == 20 || bytes == 21) && buf[4] == '\n')
 			if (g_figure_list == NULL)
 			{
-				g_figure_list = validate_figure(create_figure(buffer));
+				g_figure_list = val_fig(create_figure(vb(buf, bytes)));
 				list_head = g_figure_list;
 			}
 			else
 			{
-				g_figure_list->next = validate_figure(create_figure(buffer));
+				g_figure_list->next = val_fig(create_figure(vb(buf, bytes)));
 				g_figure_list = g_figure_list->next;
 			}
 		else
 			throw_error("Invalid data format.");
-	g_figure_list = validate_list(list_head);
+	g_figure_list = val_list(list_head);
 	close(fd);
 	return (g_figure_list);
 }

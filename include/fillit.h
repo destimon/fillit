@@ -6,7 +6,7 @@
 /*   By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 15:54:55 by vtarasiu          #+#    #+#             */
-/*   Updated: 2018/04/21 14:01:40 by vtarasiu         ###   ########.fr       */
+/*   Updated: 2018/04/21 18:34:02 by vtarasiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,15 @@ t_figure			*assign_letters(t_figure *list);
 */
 void				throw_error(char *message);
 int					list_size(t_figure *list);
-t_figure			*validate_list(t_figure *list);
-t_figure			*validate_figure(t_figure *figure);
+t_figure			*val_list(t_figure *list);
+t_figure			*val_fig(t_figure *figure);
 void				validate_neighbours(const char **fld, int x, int y);
+void				find_connections(t_figure *figure);
+
+/*
+** vb for 'validate buffer'
+*/
+char				*vb(char *buffer, int size);
 
 /*
 ** Alternative solution
@@ -73,6 +79,7 @@ int					backtrace(t_field *matrix, t_figure *list);
 /*
 ** Memory
 */
+t_field				*init_field(int initial_size);
 void				clear_figures(t_figure *list);
 void				clear_field(t_field *field);
 

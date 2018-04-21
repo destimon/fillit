@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dcherend <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vtarasiu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/20 13:09:00 by dcherend          #+#    #+#              #
-#    Updated: 2018/04/20 13:32:58 by dcherend         ###   ########.fr        #
+#    Updated: 2018/04/21 18:51:13 by vtarasiu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CFLAGS 			= -Wall -Werror -Wextra -I$(HDR_DIR) -I$(LIB_HDR_DIR)
 
 SRC 			= 	alt_solution.c figure_utils.c ft_create_el.c \
 					ft_print_matrix.c ft_read_figures.c \
-        			test.c throw_error.c validation.c memory_management.c
+        			test.c messages.c validation.c memory_management.c \
+        			validation_p2.c
 OBJ 			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 LIB_BIN 		= $(LIB_DIR)libft.a
@@ -54,3 +55,6 @@ fclean: clean
 	/bin/rm -rf $(NAME)
 	make fclean -C $(LIB_DIR)
 re: fclean all
+
+love:
+	@echo "Not war."
